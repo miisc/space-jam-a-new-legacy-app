@@ -1,50 +1,55 @@
 // A map of playerName to an array of playerPER values
-
+var playerMap = new Map();
 
 // Variables to keep track of constants 
-
+const maxPlayersOnCourt = 5;
+const numQuarters = 4;
 
 
 // Variables to track state throughout the game
-
+var currentQuarter = 0;
+var playersOnCourt = 0;
+var quarterInPlay = false;
 
 
 
 // Variables to track the PER throughout the game
-
+var quarterPER = 0;
+var quarterAvePER = 0;
+var totalAvePER = 0;
 
 
 
 // Function to read in all of the player stats
 function processPlayers(allPlayerStats) {
     // Split the data by newline into an array.
-
+    var allPlayerStatLines = allPlayerStats.split(/\r\n|\n/);
 
     // Remove the header line (first line)
-
+    allPlayerStatLines.shift();
 
     // Loop through the rows and create a map entry of player name to a list of player PER
-
+    for (var statLine of allPlayerStatLines) {
         // Get all individual stat values
-
-
+        var stats = statLine.split(',');
         // If it's just an empty line, skip it
-
+        if (!stats || stats.length <= 1) continue; // empty line
 
         // The second column has the player name
-
+        var playerName = stats[1];
 
         // Check if player exists in map
-
+        if (!playerMap.has(playerName)) {
             // First time we see the player; Add them in!
-
-
+            playerMap.set(playerName, []);
+        }
 
         // Get per value for player
-
+        var per = parseFloat(stats[9]);
 
         // Add per value to player's array (the next quarter)
-
+        playerMap.get(playerName).push(per);
+    }
 
     // Add the players to the bench.
 
