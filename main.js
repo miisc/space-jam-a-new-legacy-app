@@ -52,7 +52,7 @@ function processPlayers(allPlayerStats) {
     }
 
     // Add the players to the bench.
-
+    // test
 }
 
 // Function to add the players to the bench to start the game
